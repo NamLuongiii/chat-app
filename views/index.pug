@@ -2,9 +2,12 @@ extends layout
 
 block content
   h1= title
-  h1 Home Page 
-  div 
-    a(href='/') Home page
-  div 
-    a(href='/chat-list') Chat List
-    
+  a(href="/users/create-user") Create a new user
+
+  h2 User List 
+  ul 
+    each user in users 
+      li 
+        a(href="/users/" + user._id) #{user.name}
+  
+  script(src="/javascripts/index.js") 

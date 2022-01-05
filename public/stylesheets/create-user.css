@@ -1,0 +1,26 @@
+.create-user {
+    border: 1px solid red;
+}
+
+.form {
+    padding: 16px;
+    padding-left: 0;
+}
+
+.form input {
+    display: block;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 4px;
+    margin-bottom: 8px;
+}
+
+.form button {
+    font-size: 18px;
+    background-color: royalblue;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
