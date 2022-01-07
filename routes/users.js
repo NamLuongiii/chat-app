@@ -1,6 +1,7 @@
 var express = require("express")
 var router = express.Router()
 const { User, Order } = require("../database/index")
+const bcrypt = require('bcrypt');
 
 router.get("/create-user", (req, res) => {
     res.render("create-user.pug", { title: "Create User" })
@@ -28,9 +29,12 @@ router.post("/", async (req, res) => {
 
         if (!username || !password) throw Error('Input is not valid')
 
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(password, saltRounds);
+
         const newUser = new User({
             name: username,
-            password,
+            password: hash,
             advancedMembership: false,
         })
 
