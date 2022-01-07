@@ -22,10 +22,24 @@ router.get("/:_id", async function (req, res, next) {
     }
 })
 
-router.post("/", (req, res) => {
-    const { username, password } = req.body
+router.post("/", async (req, res) => {
+    try {
+        const { username, password } = req.body
 
-    res.json({ message: "You require create new user", username, password })
-})
+        if (!username || !password) throw Error('Input is not valid')
+
+        const newUser = new User({
+            name: username,
+            password,
+            advancedMembership: false,
+        })
+
+        await User.create(newUser)
+
+        res.json({ message: "You require create new user", username, password })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+});
 
 module.exports = router

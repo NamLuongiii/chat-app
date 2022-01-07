@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const { Order } = require("./order")
-const { User } = require("./user") 
+const { User } = require("./user")
 
 const databaseName = "b6"
 const URI = `mongodb://localhost:27017/${databaseName}`
