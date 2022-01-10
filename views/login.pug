@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/create-user.css')
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")  
+  body
+    block content
+
+block content
+  h1= title
+
+  div 
+    a(href='/') Home page
+  
+  main(class='form')
+    input(id="username" type="text", placeholder="username")
+    input(id="password" type="password", placeholder="password")
+    button(id="login-btn") Login
+
+
+
+  script(src="/javascripts/login-user.js") 

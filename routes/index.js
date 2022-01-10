@@ -1,10 +1,17 @@
 var express = require("express")
+const jsonwebtoken = require("jsonwebtoken")
 var router = express.Router()
 var { User, Order } = require("../database/index")
+
+const JSON_WEB_TOKEN_KEY = "my-key"
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
     try {
+        const { token } = req.cookies
+
+        const { userData } = jsonwebtoken.verify(token, JSON_WEB_TOKEN_KEY)
+
         /*
             page >= 1
 
@@ -19,9 +26,9 @@ router.get("/", async function (req, res, next) {
         
         */
 
-        const { page } = req.query
+        let { page } = req.query
 
-        if (isNaN(page) || page < 1) throw new Error("Input is not valid")
+        if (isNaN(page) || page < 1) page = 1
 
         const Items_Per_Page = 5
 
@@ -44,9 +51,10 @@ router.get("/", async function (req, res, next) {
             users,
             totalPages: totalPages,
             page: page,
+            userData: userData,
         })
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.render("index-no-permission.pug")
     }
 })
 
