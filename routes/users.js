@@ -3,8 +3,26 @@ var router = express.Router()
 const { User, Order } = require("../database/index")
 const bcrypt = require("bcrypt")
 var jwt = require("jsonwebtoken")
+var { destroyToken, tokenIsValid } = require("../common/invalid-token")
+
+const INVALID_TOKENS = {}
 
 const JSON_WEB_TOKEN_KEY = "my-key"
+
+router.post("/logout", (req, res) => {
+    try {
+        const { token } = req.cookies
+
+        const { userData } = jwt.verify(token, JSON_WEB_TOKEN_KEY)
+
+        destroyToken(token)
+
+        res.json({ message: "logout success" })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: "error" })
+    }
+})
 
 router.get("/create-user", (req, res) => {
     res.render("create-user.pug", { title: "Create User" })

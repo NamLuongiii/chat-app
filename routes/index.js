@@ -2,6 +2,7 @@ var express = require("express")
 const jsonwebtoken = require("jsonwebtoken")
 var router = express.Router()
 var { User, Order } = require("../database/index")
+var { destroyToken, tokenIsValid } = require("../common/invalid-token")
 
 const JSON_WEB_TOKEN_KEY = "my-key"
 
@@ -10,7 +11,12 @@ router.get("/", async function (req, res, next) {
     try {
         const { token } = req.cookies
 
+        if (!token) throw new Error('Loi khong tim thay')
+        // Check token
         const { userData } = jsonwebtoken.verify(token, JSON_WEB_TOKEN_KEY)
+        const isValid = tokenIsValid(token)
+        if (!isValid) throw new Error("Not permission")
+
 
         /*
             page >= 1
@@ -54,6 +60,11 @@ router.get("/", async function (req, res, next) {
             userData: userData,
         })
     } catch (error) {
+
+
+
+
+        console.log(error.message)
         res.render("index-no-permission.pug")
     }
 })
