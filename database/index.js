@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const { Order } = require("./order")
 const { User } = require("./user")
+const { Message } = require("./message")
 
 const databaseName = "b6"
 const URI = `mongodb://localhost:27017/${databaseName}`
@@ -12,6 +13,7 @@ mongoose.connect(URI, () => {
 module.exports = {
     Order,
     User,
+    Message,
 }
 
 /* 

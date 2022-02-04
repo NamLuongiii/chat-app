@@ -11,12 +11,11 @@ router.get("/", async function (req, res, next) {
     try {
         const { token } = req.cookies
 
-        if (!token) throw new Error('Loi khong tim thay')
+        if (!token) throw new Error("Loi khong tim thay")
         // Check token
         const { userData } = jsonwebtoken.verify(token, JSON_WEB_TOKEN_KEY)
         const isValid = tokenIsValid(token)
         if (!isValid) throw new Error("Not permission")
-
 
         /*
             page >= 1
@@ -60,17 +59,13 @@ router.get("/", async function (req, res, next) {
             userData: userData,
         })
     } catch (error) {
-
-
-
-
         console.log(error.message)
         res.render("index-no-permission.pug")
     }
 })
 
-router.get("/chat-list", (req, res) => {
-    res.render("chat-list", { data: "Hello world" })
+router.get("/chat", (req, res) => {
+    res.render("message.pug", {})
 })
 
 module.exports = router
