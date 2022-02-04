@@ -1,9 +1,15 @@
-var app = require("../app")
-var http = require("http").Server(app)
-var io = require("socket.io")(http)
+var socket_io = require('socket.io');
+var io = socket_io();
+var socketApi = {};
 
-io.on("connection", () => {
-    console.log("a user is connected’")
-})
+socketApi.io = io;
 
-exports.io = io
+io.on('connection', function(socket){
+    console.log('A user connected');
+});
+
+socketApi.sendNotification = function() {
+    io.sockets.emit('hello', {msg: 'Hello World!'});
+}
+
+module.exports = socketApi;

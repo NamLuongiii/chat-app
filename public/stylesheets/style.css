@@ -28,3 +28,8 @@ a {
 .current-page a {
   color: red;
 } 
+
+.messages {
+  max-height: 70vh;
+  overflow: auto;
+}

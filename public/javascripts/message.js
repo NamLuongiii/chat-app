@@ -1,6 +1,13 @@
-var socket = io();
+// io() mặc định sẽ kết nối tới host của website
+var socket = io()
 
-io.on('message', addMessages)
+// Khi khởi tạo kết nối thành công thì in ra định danh của nó
+socket.on("connect", () => {
+    console.log(socket.id)
+})
+
+// Lắng nghe sự kiện tên là message bắn ra từ server
+socket.on("message", addMessages)
 
 $(() => {
     $("#send").click(() => {
